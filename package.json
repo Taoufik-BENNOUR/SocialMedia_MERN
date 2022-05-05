@@ -1,0 +1,16 @@
+{
+  "name": "social_media_app_mern",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "back":"\"cd backend && nodemon server\" ",
+    "front":"\"cd frontend && npm start\"",
+    "dev": "concurrently   \" cd back && npm start    \"     \"  cd front && npm start    \" "
+
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
