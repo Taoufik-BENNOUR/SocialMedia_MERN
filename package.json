@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "back":"\"cd backend && nodemon server\" ",
-    "front":"\"cd frontend && npm start\"",
-    "dev": "concurrently   \" cd back && npm start    \"     \"  cd front && npm start    \" "
-
+    "back": "\"cd backend && nodemon server\" ",
+    "front": "\"cd frontend && npm start\"",
+    "dev": "concurrently   \" cd backend && npm start    \"     \"  cd frontend && npm start    \" "
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.1.0"
+  }
 }
