@@ -16,16 +16,15 @@ app.use(express.json())
 app.use(helmet())
 app.use(morgan("common"))
 connectDB();
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, "public/images");
+      cb(null, "../frontend/public/images/");
     },
     filename: (req, file, cb) => {
       cb(null, req.body.name);
     },
   });
-app.use("/images", express.static(path.join(__dirname, "public/images")));
+// app.use("/images", express.static(path.join(__dirname, "public/images")));
 const upload = multer({storage:storage})
 app.post("/api/upload", upload.single("file"),(req,res)=>{
     try {

@@ -43,7 +43,7 @@ const Share = () => {
             {file && (
           <div className="shareImgContainer">
             <img className="shareImg" src={URL.createObjectURL(file)} alt="" />
-            <div className="shareCancelImg" onClick={() => setfile(null)} />
+            <div className="shareCancelImg" onClick={() => setfile(null)} >X</div>
           </div>
         )}
             <form className="shareBottom" onSubmit={submitHandler}>

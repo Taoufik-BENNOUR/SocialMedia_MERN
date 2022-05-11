@@ -53,9 +53,10 @@ const Post = ({post}) => {
                 <FontAwesomeIcon icon={faEllipsisV} />
                 </div>
             </div>
+            {post.img}
             <div className="postCenter">
-                <span className="postText">{post.desc}</span>
-                <img className='postImg' alt='post' src={post.img} />
+                <span className="postText">{post?.desc}</span>
+                <img className='postImg' alt='post' src={"./images/"+ post.img} />
             </div>
             <div className="postBottom">
                 <div className="postBottomLeft">
