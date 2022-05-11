@@ -7,6 +7,8 @@ const connectDB = require("./config/connectDB");
 const authRoute = require('./routes/auth')
 const userRoute = require('./routes/users')
 const postRoute = require('./routes/posts')
+const multer = require("multer")
+const path = require("path");
 
 const  app = express()
 
@@ -15,10 +17,26 @@ app.use(helmet())
 app.use(morgan("common"))
 connectDB();
 
-
-app.use('/api/users',authRoute)
-app.use('/users',userRoute)
-app.use('/posts',postRoute)
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "public/images");
+    },
+    filename: (req, file, cb) => {
+      cb(null, req.body.name);
+    },
+  });
+app.use("/images", express.static(path.join(__dirname, "public/images")));
+const upload = multer({storage:storage})
+app.post("/api/upload", upload.single("file"),(req,res)=>{
+    try {
+        return res.status(200).json("Filed uploaded")
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+app.use('/api/auth',authRoute)
+app.use('/api/users',userRoute)
+app.use('/api/posts',postRoute)
 
 
 app.listen(process.env.PORT,(err)=>{

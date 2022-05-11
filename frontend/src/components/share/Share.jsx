@@ -1,25 +1,58 @@
-import React from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { FontAwesomeIcon  } from '@fortawesome/react-fontawesome'
-import { faAtom, faLocation, faLocationPin, faLocationPinLock, faMap, faPhotoVideo, faSmile, faTag } from '@fortawesome/free-solid-svg-icons'
-
+import {  faLocationPin, faPhotoVideo, faSmile, faTag } from '@fortawesome/free-solid-svg-icons'
 import "./share.css"
+import { AuthContext } from '../../context/AuthContext'
+import axios from 'axios'
 
 const Share = () => {
+    const {user} = useContext(AuthContext)
+    const desc = useRef()
+    const [file, setfile] = useState(null)
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER 
+    const submitHandler = async (e) => {
+      e.preventDefault();
+      const newPost = {
+        userId: user._id,
+        desc: desc.current.value,
+      };
+      if (file) {
+        const data = new FormData();
+        const fileName = Date.now() + file.name;
+        data.append("name", fileName);
+        data.append("file", file);
+        newPost.img = fileName;
+        console.log(newPost);
+        try {
+          await axios.post("/upload", data);
+        } catch (err) {}
+      }
+      try {
+        await axios.post("/posts", newPost);
+        window.location.reload();
+      } catch (err) {}
+    };
   return (
     <div className='share'>
         <div className="shareWrapper">
             <div className="shareTop">
-            <img src='https://staticg.sportskeeda.com/editor/2022/01/b0755-16425315464091-1920.jpg' className='shareProfileImg' />
-            <input placeholder='What do you wanna share' type="text" className="shareInput" />
+            <img  className='shareProfileImg' alt='feed' src='https://staticg.sportskeeda.com/editor/2022/01/b0755-16425315464091-1920.jpg'/>
+            <input placeholder={'What do you wanna share '+user.username} ref={desc} type="text" className="shareInput" />
             </div>
-            <div className="shareBottom"></div>
             <hr className="shareHr" />
-            <div className="shareBottom">
+            {file && (
+          <div className="shareImgContainer">
+            <img className="shareImg" src={URL.createObjectURL(file)} alt="" />
+            <div className="shareCancelImg" onClick={() => setfile(null)} />
+          </div>
+        )}
+            <form className="shareBottom" onSubmit={submitHandler}>
                 <div className="shareOptions">
-                    <div className="shareOption">
+                    <label htmlFor='file' className="shareOption">
                     <FontAwesomeIcon style={{color:"red"}} className='shareIcon' icon={faPhotoVideo}  />
                         <span className='shareOptionText'> Photo video</span>
-                    </div>
+                        <input type="file" id="file" accept='.png,.jpg,jpeg' style={{display:"none"}} onChange={(e)=>setfile(e.target.files[0])} />
+                    </label>
                     <div className="shareOption">
                     <FontAwesomeIcon style={{color:"blue"}}  className='shareIcon' icon={faTag} />
                         <span className='shareOptionText'> Tag</span>
@@ -33,8 +66,8 @@ const Share = () => {
                      <span className='shareOptionText'>Feelings</span>
                     </div>
                 </div>
-                <button className="shareButton">share</button>
-            </div>
+                <button className="shareButton" type='submit'>share</button>
+            </form>
         </div>
 
     </div>

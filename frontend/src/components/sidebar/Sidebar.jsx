@@ -1,4 +1,4 @@
-import { faBookBookmark, faBriefcase, faCalendarCheck, faFeed, faGraduationCap, faMessage, faQuestion, faQuestionCircle, faSchool, faSchoolFlag, faUserGroup, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { faBookBookmark, faBriefcase, faCalendarCheck, faFeed, faGraduationCap, faMessage, faQuestionCircle,  faUserGroup, faVideo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import CloseFriend from '../closeFriend/CloseFriend'
@@ -50,7 +50,7 @@ const Sidebar = () => {
         </ul>
         <button className="sidebarButton">Show more</button>
         <hr className="sidebarHr" />
-        {Users.map(el => <CloseFriend user={el}/>
+        {Users.map((el,i) => <CloseFriend user={el} key={i} />
  )}
       </div>
         

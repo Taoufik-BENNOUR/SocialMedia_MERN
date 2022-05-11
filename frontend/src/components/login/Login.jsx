@@ -1,6 +1,20 @@
-import React from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
+import { loginCall } from '../../context/apiCalls'
+import { AuthContext } from '../../context/AuthContext'
 import "./login.css"
+import CircularProgress from '@mui/material/CircularProgress';
+
 const Login = () => {
+
+  const email = useRef()
+  const password = useRef()
+const {isLoading,dispatch} = useContext(AuthContext)
+  const handeClick=(e)=>{
+e.preventDefault()
+  loginCall({email:email.current.value,password:password.current.value}
+    ,dispatch)
+  }
+
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -11,15 +25,15 @@ const Login = () => {
           </span>
         </div>
         <div className="loginRight">
-          <div className="loginBox">
-            <input placeholder="Email" className="loginInput" />
-            <input placeholder="Password" className="loginInput" />
-            <button className="loginButton">Log In</button>
+          <form className="loginBox" onSubmit={handeClick}>
+            <input placeholder="Email" type="email" className="loginInput" ref={email} required/>
+            <input placeholder="Password" type="password" className="loginInput"  ref={password} required/>
+            <button className="loginButton" disabled={isLoading}>{isLoading?<CircularProgress  /> :"Log In"}</button>
             <span className="loginForgot">Forgot Password?</span>
             <button className="loginRegisterButton">
-              Create a New Account
+             {isLoading?<CircularProgress  /> :"Create a New Account"}
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
