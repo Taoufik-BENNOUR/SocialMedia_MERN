@@ -6,14 +6,17 @@ import axios from 'axios'
 import { AuthContext } from '../../context/AuthContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 const Rightbar = ({user}) => {
     const [friends, setfriends] = useState([])
     const { user: currentUser, dispatch } = useContext(AuthContext);
-    const [followed, setFollowed] = useState(currentUser.followings.includes(user?.id))
+    const [followed, setFollowed] = useState(
+        currentUser.followings.includes(user?._id)
+      );    
 useEffect(() => {
   const getfriends = async()=>{
       try {
-       const friends = await axios.get(`/users/friends/${user._id}`)
+       const friends = await axios.get(`/users/friends/${currentUser._id}`)
        setfriends(friends.data)
       } catch (error) {
           console.log(error)
@@ -80,12 +83,14 @@ const handleClick = async ()=>{
                 </div>
             </div>
             <h4 className="rightbarTitle">User friends</h4>
+          
             <div className="rightbarFollowings">
-                {friends.map(friend=><div className="rightbarFollowing">
+                {friends.map(friend=>
+                            <Link to={`/profile/${friend.username}`}>
+                            <div className="rightbarFollowing">
                     <img className="rightbarFollowingImg" src="" alt=""  />
                     <span className="rightbarFollowingName">{friend.username}</span>
-                </div>)}
-                
+                </div></Link>)} 
             </div>
             </>
         )

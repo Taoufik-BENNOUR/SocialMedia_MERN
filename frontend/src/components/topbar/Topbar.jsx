@@ -1,10 +1,21 @@
+import { faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../../context/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import "./topbar.css"
+
 const Topbar = () => {
   const {user} = useContext(AuthContext)
+  const {dispatch} = useContext(AuthContext)
+  const navigate = useNavigate()
 
+const handleClick=(e)=>{
+  e.preventDefault()
+    logout(dispatch)
+    
+}
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -29,13 +40,18 @@ const Topbar = () => {
             <span className="topbarIconBadge">1</span>
           </div>
           <div className="topbarIconItems">
-            <i className="fa fa-comment"></i>
+            <Link to={"/messenger"}><i className="fa fa-comment"></i></Link>
             <span className="topbarIconBadge">2</span>
           </div>
           <div className="topbarIconItems">
           <i className="fa fa-bell"></i>
           <span className="topbarIconBadge">1</span>
           </div>
+          <div className="topbarIconItems">
+          <FontAwesomeIcon className="topbarIconItems" onClick={(e)=>{handleClick(e)
+          navigate('/login')}} icon={faSignOut} />
+          </div>
+
         </div>
         <Link to={`/profile/${user.username}`}>
         <img src="https://wallpaperaccess.com/full/3899397.png" alt="" className="topbarImg" />

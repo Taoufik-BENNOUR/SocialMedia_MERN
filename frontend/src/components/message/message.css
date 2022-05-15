@@ -1,0 +1,66 @@
+.message{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: flex-end;
+}
+.messageTop{
+    display: flex;
+}
+.messageImg{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit:cover;
+    margin-right: 10px;
+}
+.messageText{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgb(204, 198, 198);
+    color: black;
+    max-width: 300px;
+    
+}
+.messageBottom{
+    font-size: 12px;
+    margin-top: 10px;
+}
+.message.own{
+    align-items: flex-start;
+}
+.message.own .messageText{
+    background-color: rgb(204, 153, 0);
+    color: #fff;
+}
+.chatBox{
+    flex: 5;
+}
+.chatBoxWrapper{
+ display: flex;   
+ flex-direction: column;
+
+}
+.chatBoxTop{
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+.chatBoxBottom{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatMessageInput{
+    width: 80%;
+    height: 80px;
+    pad: 10px;
+}
+.chatSumbitButton{
+    width: 70px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+}

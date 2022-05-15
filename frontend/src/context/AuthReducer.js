@@ -1,6 +1,6 @@
 const AuthReducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN_START":
+    case "LOGIN_LOADING":
       return { user: null, isLoading: true, error: false };
     case "LOGIN_SUCCESS":
       return { user: action.payload, isLoading: false, error: false };
@@ -8,9 +8,7 @@ const AuthReducer = (state, action) => {
       return { user: null, isLoading: false, error: action.payload };
     case "FOLLOW":
       return {
-        user: null,
-        isLoading: false,
-        error: false,
+        ...state,
         user: {
           ...state.user,
           followings: [...state.user.followings, action.payload],
@@ -18,14 +16,16 @@ const AuthReducer = (state, action) => {
       };
     case "UNFOLLOW":
       return {
-        user: null,
-        isLoading: false,
-        error: false,
+        ...state,
         user: {
           ...state.user,
-          followings:state.user.followings.filter(el=>el !== action.payload),
+          followings: state.user.followings.filter(
+            (following) => following !== action.payload
+          ),
         },
       };
+    case "LOGOUT":
+      return {user:null,isLoading:false,error:false}  
 
     default:
       return state;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import { loginCall } from '../../context/apiCalls'
 import { AuthContext } from '../../context/AuthContext'
 import "./login.css"

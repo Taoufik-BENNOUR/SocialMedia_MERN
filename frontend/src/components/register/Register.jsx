@@ -1,8 +1,7 @@
 
 import axios from 'axios';
-import React, { useContext, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext';
 import "./register.css";
 
 const Register = () => {
@@ -28,9 +27,9 @@ const Register = () => {
         console.log(error)
       }
     }
-
-
   }
+  
+  
   return (
     <>
   <div className="register">
